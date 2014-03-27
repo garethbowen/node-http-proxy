@@ -15,12 +15,13 @@ describe('lib/http-proxy/common.js', function () {
           port      : 'you',
         },
         headers: {'fizz': 'bang', 'overwritten':true},
+        omitHeaders: ['deleted'],
         localAddress: 'local.address',
       },
       {
         method    : 'i',
         url      : 'am',
-        headers   : {'pro':'xy','overwritten':false} 
+        headers   : {'pro':'xy','overwritten':false,'deleted':true} 
       });
 
       expect(outgoing.host).to.eql('hey');
@@ -35,6 +36,7 @@ describe('lib/http-proxy/common.js', function () {
       expect(outgoing.headers.pro).to.eql('xy');
       expect(outgoing.headers.fizz).to.eql('bang');
       expect(outgoing.headers.overwritten).to.eql(true);
+      expect(outgoing.headers.deleted).to.be(undefined);
       expect(outgoing.localAddress).to.eql('local.address');
     });
 
